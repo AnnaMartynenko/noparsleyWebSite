@@ -17,6 +17,13 @@ jobs:
 
       - name: List files before upload
         run: ls -R
+      
+      - name: Debug vars
+        run: |
+          echo "Account: ${{ secrets.AZURE_STORAGE_ACCOUNT }}"
+          echo "Key len: ${#AZURE_STORAGE_KEY}"
+        env:
+          AZURE_STORAGE_KEY: ${{ secrets.AZURE_STORAGE_KEY }}
 
       - name: Upload to Azure Storage via access key
         uses: azure/CLI@v2
