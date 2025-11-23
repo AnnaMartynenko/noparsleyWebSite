@@ -15,15 +15,10 @@ jobs:
       - name: CheckOut
         uses: actions/checkout@v4
 
-      - name: List files before upload
-        run: ls -R
-      
-      - name: Debug vars
+      - name: Prepare upload directory
         run: |
-          echo "Account: ${{ secrets.AZURE_STORAGE_ACCOUNT }}"
-          echo "Key len: ${#AZURE_STORAGE_KEY}"
-        env:
-          AZURE_STORAGE_KEY: ${{ secrets.AZURE_STORAGE_KEY }}
+          mkdir upload
+          rsync -av ./ upload/
 
       - name: Upload to Azure Storage via access key
         uses: azure/CLI@v2
@@ -32,7 +27,7 @@ jobs:
             az storage blob upload-batch \
               --account-name "$ACCOUNT" \
               --account-key "$KEY" \
-              --source "." \
+              --source "upload" \
               --destination '$web/noparsley' \
               --overwrite
         env:
