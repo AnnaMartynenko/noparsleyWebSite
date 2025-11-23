@@ -18,7 +18,7 @@ jobs:
       - name: Prepare upload directory
         run: |
           mkdir upload
-          rsync -av ./ upload/
+          rsync -av --exclude='.git' --exclude='.github' ./ upload/
 
       - name: Upload to Azure Storage via access key
         uses: azure/CLI@v2
