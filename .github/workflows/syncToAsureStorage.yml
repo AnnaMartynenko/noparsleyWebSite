@@ -12,26 +12,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - uses: azure/login@v2
-      with:
-        client-id: ${{ secrets.CLIENTID }}
-        tenant-id: ${{ secrets.TENANTID }}
-        subscription-id: ${{ secrets.SUBSCRIPTIONID }}
-
-    - name: Upload to blob storage
-      uses: azure/CLI@v1
-      with:
-        inlineScript: |
-            az storage blob upload-batch --account-name nickromantstorageacc --auth-mode key -d '$web' -s noparsley
-    - name: Purge CDN endpoint
-      uses: azure/CLI@v1
-      with:
-        inlineScript: |
-           az cdn endpoint purge --content-paths  "/*" --profile-name "nickromantfrontdoor" --name "nickromantfrontdoor-bcgaeveuctchf4ap.z01.azurefd.net" --resource-group "home"
-
-  # Azure logout
-    - name: logout
-      run: |
-            az logout
-      if: always()
+      - name: Upload to Azure Storage via access key
+        uses: azure/CLI@v2
+        with:
+          inlineScript: |
+            az storage blob upload-batch \
+              --account-name ${{ secrets.AZURE_STORAGE_ACCOUNT }} \
+              --account-key ${{ secrets.AZURE_STORAGE_KEY }} \
+              --source . \
+              --destination '$web/noparsley'
