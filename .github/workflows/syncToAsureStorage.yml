@@ -33,7 +33,9 @@ jobs:
               --account-name "$ACCOUNT" \
               --account-key "$KEY" \
               --source "." \
-              --destination '$web/noparsley'
+              --destination '$web/noparsley' \
+              --overwrite \
+              --exclude-path ".git" ".github"
         env:
           ACCOUNT: ${{ secrets.AZURE_STORAGE_ACCOUNT }}
           KEY: ${{ secrets.AZURE_STORAGE_KEY }}
