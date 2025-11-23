@@ -12,11 +12,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Install Azure CLI
-        uses: azure/setup-azure@v3
-        with:
-          version: 2.57.0
-
       - name: Upload to Azure Storage via access key
         uses: azure/CLI@v2
         with:
@@ -25,5 +20,4 @@ jobs:
               --account-name ${{ secrets.AZURE_STORAGE_ACCOUNT }} \
               --account-key ${{ secrets.AZURE_STORAGE_KEY }} \
               --source . \
-              --destination $web \
-              --destination-path noparsley
+              --destination $web/noparsley
