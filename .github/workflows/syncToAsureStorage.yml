@@ -23,5 +23,4 @@ jobs:
               --account-name ${{ secrets.AZURE_STORAGE_ACCOUNT }} \
               --account-key ${{ secrets.AZURE_STORAGE_KEY }} \
               --source . \
-              --destination $web/noparsley \
-              --overwrite
+              --destination $web/noparsley
