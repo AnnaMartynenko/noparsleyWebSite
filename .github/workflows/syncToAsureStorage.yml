@@ -20,4 +20,4 @@ jobs:
               --account-name ${{ secrets.AZURE_STORAGE_ACCOUNT }} \
               --account-key ${{ secrets.AZURE_STORAGE_KEY }} \
               --source . \
-              --destination '$web'
+              --destination $web/noparsley
