@@ -30,7 +30,10 @@ jobs:
         with:
           inlineScript: |
             az storage blob upload-batch \
-              --account-name ${{ secrets.AZURE_STORAGE_ACCOUNT }} \
-              --account-key ${{ secrets.AZURE_STORAGE_KEY }} \
-              --source . \
-              --destination $web/noparsley
+              --account-name "$ACCOUNT" \
+              --account-key "$KEY" \
+              --source "." \
+              --destination '$web/noparsley'
+        env:
+          ACCOUNT: ${{ secrets.AZURE_STORAGE_ACCOUNT }}
+          KEY: ${{ secrets.AZURE_STORAGE_KEY }}
