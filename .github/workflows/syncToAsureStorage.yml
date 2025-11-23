@@ -12,6 +12,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: CheckOut
+        uses: actions/checkout@v4
+
+      - name: List files before upload
+        run: ls -R
+
       - name: Upload to Azure Storage via access key
         uses: azure/CLI@v2
         with:
